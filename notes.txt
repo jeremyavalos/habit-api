@@ -1,0 +1,7 @@
+LOGIN TEST
+
+email: jeremy@test.com
+password: 1234
+
+TOKEN:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZXJlbXlAdGVzdC5jb20iLCJleHAiOjE3NzYyMDUwODN9.xBN-17vjqHI5qV90jWvTrDDueHMxXb868ow8ziCH2GY
