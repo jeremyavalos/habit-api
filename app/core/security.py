@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt
 
-from app.utils.security import SECRET_KEY, ALGORITHM
+from app.core.config import settings
 
 security = HTTPBearer()
 
