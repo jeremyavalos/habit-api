@@ -1,21 +1,16 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from logging.config import fileConfig
 
+from sqlalchemy import engine_from_config
+from sqlalchemy import pool
 
-class Settings(BaseSettings):
-    # 🔹 Base de datos
-    DATABASE_URL: str
+from alembic import context
 
-    # 🔹 Seguridad JWT
-    SECRET_KEY: str = "supersecret"
-    ALGORITHM: str = "HS256"
+from app.database import Base
+from app.models import *
 
-    # 🔹 Expiración de tokens
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
-    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+config = context.config
 
-    # 🔹 Configuración de entorno
-    model_config = SettingsConfigDict(env_file=".env")
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
 
-
-# 🔥 Instancia global
-settings = Settings()
+target_metadata = Base.metadata
