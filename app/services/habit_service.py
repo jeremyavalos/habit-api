@@ -3,7 +3,32 @@ from app.models.habit import Habit
 from app.schemas.habit import HabitCreate
 from fastapi import HTTPException
 from app.models.habit import Habit
+from datetime import date
+from app.models.habit_log import HabitLog
 
+
+def complete_habit(db, habit_id: int, user_id: int):
+    today = date.today()
+
+    # 🔹 evitar duplicado
+    existing = db.query(HabitLog).filter(
+        HabitLog.habit_id == habit_id,
+        HabitLog.completed_at == today
+    ).first()
+
+    if existing:
+        return {"message": "Ya completado hoy"}
+
+    log = HabitLog(
+        habit_id=habit_id,
+        completed_at=today
+    )
+
+    db.add(log)
+    db.commit()
+    db.refresh(log)
+
+    return {"message": "Hábito completado"}
 
 def complete_habit(db, habit_id: int, user_id: int):
     habit = db.query(Habit).filter(Habit.id == habit_id).first()
