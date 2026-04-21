@@ -5,7 +5,28 @@ from fastapi import HTTPException
 from app.models.habit import Habit
 from datetime import date
 from app.models.habit_log import HabitLog
+from datetime import date, timedelta
+from app.models.habit_log import HabitLog
 
+
+def get_streak(db, habit_id: int):
+    logs = db.query(HabitLog).filter(
+        HabitLog.habit_id == habit_id
+    ).order_by(HabitLog.completed_at.desc()).all()
+
+    if not logs:
+        return 0
+
+    streak = 0
+    current_day = date.today()
+
+    log_dates = {log.completed_at for log in logs}
+
+    while current_day in log_dates:
+        streak += 1
+        current_day -= timedelta(days=1)
+
+    return streak
 
 def complete_habit(db, habit_id: int, user_id: int):
     today = date.today()

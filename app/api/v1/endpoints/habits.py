@@ -1,3 +1,4 @@
+from app.services.habit_service import get_streak
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -47,3 +48,13 @@ def delete_habit_endpoint(
     current_user = Depends(get_current_user)
 ):
     return delete_habit(db, habit_id, current_user.id)
+
+@router.get("/{habit_id}/streak")
+def get_habit_streak(
+    habit_id: int,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    return {
+        "streak": get_streak(db, habit_id)
+    }
