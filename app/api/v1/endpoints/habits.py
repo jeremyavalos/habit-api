@@ -1,3 +1,5 @@
+from app.services.habit_service import get_habit_logs
+from app.services.habit_service import get_habit_stats
 from app.services.habit_service import get_streak
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -58,3 +60,20 @@ def get_habit_streak(
     return {
         "streak": get_streak(db, habit_id)
     }
+
+@router.get("/{habit_id}/stats")
+def habit_stats(
+    habit_id: int,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    return get_habit_stats(db, habit_id)
+
+
+@router.get("/{habit_id}/logs")
+def habit_logs(
+    habit_id: int,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    return get_habit_logs(db, habit_id)

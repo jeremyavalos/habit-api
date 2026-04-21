@@ -1,0 +1,71 @@
+# Habit Tracker API 🚀
+
+Backend profesional construido con FastAPI para seguimiento de hábitos con autenticación, streaks y estadísticas.
+
+## 🔥 Features
+
+- 🔐 Autenticación con JWT (Access + Refresh Tokens)
+- 👤 Registro y login de usuarios
+- 📌 CRUD de hábitos
+- 📅 Tracking diario de hábitos
+- 🔥 Streaks (rachas consecutivas)
+- 📊 Estadísticas por hábito
+- 📈 Estadísticas globales del usuario
+- 🧠 Arquitectura modular (services, schemas, routers)
+- 🧪 Tests con pytest
+- ☁️ Deploy en Railway
+
+---
+
+## 🧱 Tech Stack
+
+- FastAPI
+- PostgreSQL
+- SQLAlchemy
+- Alembic
+- JWT (python-jose)
+- Railway (deploy)
+
+---
+
+## 🚀 Endpoints principales
+
+### Auth
+- `POST /api/v1/register`
+- `POST /api/v1/login`
+- `POST /api/v1/refresh`
+
+### Habits
+- `POST /api/v1/habits/`
+- `GET /api/v1/habits/`
+- `PATCH /api/v1/habits/{id}`
+- `DELETE /api/v1/habits/{id}`
+
+### Tracking
+- `GET /api/v1/habits/{id}/logs`
+- `GET /api/v1/habits/{id}/streak`
+- `GET /api/v1/habits/{id}/stats`
+
+### User
+- `GET /api/v1/me/stats`
+
+---
+
+## 🌐 Live Demo
+
+👉 https://TU-URL.up.railway.app/docs
+
+---
+
+## ⚙️ Instalación local
+
+```bash
+git clone https://github.com/tuusuario/habit-api.git
+cd habit-api
+
+python -m venv venv
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+uvicorn app.main:app --reload

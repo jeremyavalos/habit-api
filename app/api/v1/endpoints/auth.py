@@ -1,3 +1,5 @@
+from app.utils.security import get_current_user
+from app.services.habit_service import get_user_stats
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -67,3 +69,10 @@ def login(user: UserCreate, db: Session = Depends(get_db)):
         "refresh_token": refresh_token,
         "token_type": "bearer"
     }
+
+@router.get("/me/stats")
+def user_stats(
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    return get_user_stats(db, current_user.id)
